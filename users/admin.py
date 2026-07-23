@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import MyUser  
+from .models import MyUser, Task, SubTask
 
 @admin.register(MyUser)
 class MyUserAdmin(UserAdmin):
@@ -18,4 +18,14 @@ class MyUserAdmin(UserAdmin):
     search_fields = ['username', 'email']
 
 
-# Register your models here.
+@admin.register(Task)
+class TaskAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'description', 'completed', 'user']
+    list_filter = ['completed', 'user']
+    search_fields = ['title', 'description']
+
+@admin.register(SubTask)
+class SubTaskAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'description', 'completed', 'task']
+    list_filter = ['completed', 'task']
+    search_fields = ['title', 'description']
