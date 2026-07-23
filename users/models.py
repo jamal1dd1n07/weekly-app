@@ -16,7 +16,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     completed = models.BooleanField(default=False)
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='tasks')
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='topshiriqlar')
 
     def __str__(self):
         return self.title
@@ -32,15 +32,15 @@ class SubTask(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     completed = models.BooleanField(default=False)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtopshiriqlar')
 
     def __str__(self):
         return self.title
 
 
     class Meta:
-            verbose_name = "SubTask"
-            verbose_name_plural = "SubTasklar"
+            verbose_name = "SubTopshiriq"
+            verbose_name_plural = "SubTopshiriqlar"
             ordering = ['id']
     
 
