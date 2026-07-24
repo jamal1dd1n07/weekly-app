@@ -5,6 +5,7 @@ from .views import *
 
 router = DefaultRouter()
 router.register(r'tasks', TaskViewSet, basename='task')
+router.register(r'subtasks', SubTaskViewSet, basename='subtask')
 
 urlpatterns = [
     path('api/', include(router.urls)), 

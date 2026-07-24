@@ -22,7 +22,6 @@ class Task(models.Model):
     end_time = models.TimeField(null=True, blank=True)
     priority = models.IntegerField(default=0)
     is_completed = models.BooleanField(default=False)
-    parent_task = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='subtasks')
     google_event_id = models.CharField(max_length=255, null=True, blank=True)
     calendar_sync_status = models.CharField(max_length=50, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -41,8 +40,8 @@ class Task(models.Model):
 class SubTask(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    completed = models.BooleanField(default=False)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtopshiriqlar')
+    is_completed = models.BooleanField(default=False)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='subtasks')
 
     def __str__(self):
         return self.title
