@@ -4,12 +4,18 @@ from django.contrib.auth.models import AbstractUser
 class MyUser(AbstractUser):
     age = models.IntegerField(null=True, blank=True)
     location = models.TextField(null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    time_zone = models.CharField(max_length=50, default='Asia/Tashkent')  
+    daily_goal_limit = models.PositiveIntegerField(default=5)
 
     class Meta:
         verbose_name = "Foydalanuvchi"
         verbose_name_plural = "Foydalanuvchilar"
         ordering = ['id']
 
+    def __str__(self):
+        return self.username
 
 
 class Task(models.Model):
@@ -53,3 +59,27 @@ class SubTask(models.Model):
             ordering = ['id']
     
 
+
+class Notification(models.Model):
+    class NotificationType(models.TextChoices):
+        INFO = 'info', 'Info'
+        WARNING = 'warning', 'Warning'
+        TASK = 'task', 'Task Reminder'
+        SYSTEM = 'system', 'System'
+
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='notifications')
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    notification_type = models.CharField(
+        max_length=20, 
+        choices=NotificationType.choices, 
+        default=NotificationType.INFO
+    )
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.username} - {self.title}"

@@ -1,17 +1,36 @@
 from rest_framework import serializers
 from .models import *
 
-class MyUserSerializer(serializers.ModelSerializer):
+from rest_framework import serializers
+from .models import MyUser
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    # Qo'shimcha: foydalanuvchining nechta topshirig'i borligini hisoblash (Read-only)
+    tasks_count = serializers.IntegerField(source='topshiriqlar.count', read_only=True)
+
     class Meta:
         model = MyUser
-        fields = ['id', 'username', 'email', 'age', 'location']
+        fields = [
+            'id', 
+            'username', 
+            'email', 
+            'first_name', 
+            'last_name', 
+            'age', 
+            'location', 
+            'tasks_count',
+            'date_joined'
+        ]
+        # ID, username, email va ro'yxatdan o'tgan sanani o'zgartirib bo'lmaydigan qilamiz
+        read_only_fields = ['id', 'username', 'email', 'date_joined']
 
 
 
 class SubTaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubTask
-        fields = ['id', 'title', 'description', 'completed', 'task']
+        fields = ['id', 'title', 'description', 'is_completed', 'task']
         read_only_fields = ['id', 'task']
 
 

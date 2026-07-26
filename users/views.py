@@ -3,9 +3,19 @@ from rest_framework import generics, mixins, status, viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import RetrieveUpdateAPIView
 
 from .models import *
 from .serializers import *
+
+
+class UserProfileView(RetrieveUpdateAPIView):
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):   # type: ignore
+        # URL'da ID bo'lishi shart emas, har doim token egasining profilini qaytaradi
+        return self.request.user
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
