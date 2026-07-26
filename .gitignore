@@ -1,12 +1,29 @@
+# Virtual muhit
 env/
+venv/
+ENV/
+
+# Python / Byte-code fayllar
 *.pyc
 __pycache__/
+*.pyo
+*.pyd
+
+# Maxfiy va sozlama fayllari
 .env
-db.sqlite3
 .vscode/
 .idea/
+
+# Baza fayllari
+db.sqlite3
+
+# Keraksiz skriptlar va PyInstaller fayllari
 main.py
 tg_bot.py
-build/
 main.spec
+build/
 dist/
+
+# Yuklangan media/rasmlar (agar GitHub'ga rasm chiqarmaslik kerak bo'lsa)
+avatars/
+media/
