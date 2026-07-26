@@ -6,6 +6,7 @@ from .views import *
 router = DefaultRouter()
 router.register(r'tasks', TaskViewSet, basename='task')
 router.register(r'subtasks', SubTaskViewSet, basename='subtask')
+router.register(r'notifications', NotificationViewSet, basename='notification')
 
 urlpatterns = [
     path('api/', include(router.urls)), 
@@ -14,3 +15,4 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')), 
     path('api/profile/', UserProfileView.as_view(), name='user-profile'),     
 ]
+

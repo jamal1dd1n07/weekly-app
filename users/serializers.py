@@ -1,9 +1,8 @@
 from rest_framework import serializers
 from .models import *
+from django.contrib.auth import get_user_model
 
-from rest_framework import serializers
-from .models import MyUser
-
+User = get_user_model()
 
 class UserProfileSerializer(serializers.ModelSerializer):
     # Qo'shimcha: foydalanuvchining nechta topshirig'i borligini hisoblash (Read-only)
@@ -20,7 +19,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'age', 
             'location', 
             'tasks_count',
-            'date_joined'
+            'date_joined',
+            'avatar',
+            'bio',
+            'time_zone',
+            'daily_goal_limit',
         ]
         # ID, username, email va ro'yxatdan o'tgan sanani o'zgartirib bo'lmaydigan qilamiz
         read_only_fields = ['id', 'username', 'email', 'date_joined']
@@ -56,3 +59,16 @@ class TaskSerializer(serializers.ModelSerializer):
             'updated_at'
         ]
         read_only_fields = ['id', 'user', 'created_at', 'updated_at', 'google_event_id', 'calendar_sync_status', 'subtasks']
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    """
+    Bildirishnomalar uchun serializer.
+    """
+    class Meta:
+        model = Notification
+        fields = [
+            'id', 'title', 'message', 'notification_type', 
+            'is_read', 'created_at'
+        ]
+        read_only_fields = ['id', 'created_at']

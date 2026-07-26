@@ -41,10 +41,12 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
 
     # 'drf_yasg',
 
     'users.apps.UsersConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -61,13 +63,19 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Weekly App API',
+    'DESCRIPTION': 'Weekly App loyihasi uchun REST API hujjatlari',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # Auth tugmasi (Authorize) ishlashi uchun JWT sozlamasi:
+    'COMPONENT_SPLIT_REQUEST': True,
 }
 
 ROOT_URLCONF = 'config.urls'

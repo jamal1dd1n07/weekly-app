@@ -14,18 +14,18 @@ class TaskInline(admin.TabularInline):
 @admin.register(MyUser)
 class MyUserAdmin(UserAdmin):
     fieldsets = list(UserAdmin.fieldsets or []) + [
-        ('Qo\'shimcha Ma\'lumotlar', {'fields': ('age', 'location')}),
+        ('Qo\'shimcha Ma\'lumotlar', {'fields': ('age', 'location', 'avatar', 'bio', 'time_zone', 'daily_goal_limit')}),
     ]
     
     add_fieldsets = list(UserAdmin.add_fieldsets or []) + [
-        ('Qo\'shimcha Ma\'lumotlar', {'fields': ('age', 'location')}),
+        ('Qo\'shimcha Ma\'lumotlar', {'fields': ('age', 'location', 'avatar', 'bio', 'time_zone', 'daily_goal_limit')}),
     ]
 
     inlines = [TaskInline]
     
-    list_display = ['id', 'username', 'email', 'age', 'is_staff']
-    list_filter = ['is_staff', 'is_superuser', 'is_active']
-    search_fields = ['username', 'email']
+    list_display = ['id', 'username', 'email', 'age', 'is_staff', 'is_superuser', 'is_active']
+    list_filter = ['is_staff', 'is_superuser', 'is_active', 'age', 'location']
+    search_fields = ['username', 'email', 'first_name', 'last_name', 'age', 'location']
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
