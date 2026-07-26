@@ -7,3 +7,6 @@ db.sqlite3
 .idea/
 main.py
 tg_bot.py
+build/
+main.spec
+dist/
